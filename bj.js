@@ -43,6 +43,7 @@ const createPlayers = numPlayers => {
          points: 0,
          hand: [],
          state: 0, // 0 = playing, 1 = win, 2 = lose
+         ace: false
       });
    }
    return players;
@@ -51,18 +52,23 @@ const createPlayers = numPlayers => {
 let deck = createDeck();
 let players = createPlayers(2);
 
-const dealHand = () => {
-   for (let i = 0; i < 2; i++) {
-      for (let j = 0; j < players.length; j++) {
-         players[j].hand.push(deck.pop());
+const checkAces = () => {
+   for (let i = 0; i < players.length; i++) {
+      for (let j = 0; j < players[i].hand.length; j++) {
+         if (players[i].hand[j].value == 11) {
+            players[i].ace = true;
+         }
       }
    }
 }
 
-const checkAces = () => {
-   for (let i = 0; i < players.length; i++) {
-      for (let j = 0; j < players[i].hand.length; j++) {
-         console.log(j);
+const dealHand = () => {
+   for (let i = 0; i < 2; i++) {
+      for (let j = 0; j < players.length; j++) {
+         let card = deck.pop();
+         players[j].hand.push(card);
+         players[j].points += card.value;
+         checkAces();
       }
    }
 }
@@ -73,5 +79,7 @@ dealHand();
 
 // console.log(deck.length);
 console.log(deck);
-// console.log(players[0].hand);
-// console.log(players[1].hand);
+console.log(players[0]);
+console.log(players[0].hand);
+console.log(players[1]);
+console.log(players[1].hand);
