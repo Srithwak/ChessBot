@@ -1,1 +1,0 @@
-console.log('\x1b[44m\x1b[37m', 'This text has a blue background and white text');
